@@ -10,6 +10,10 @@
 		A36C95CE1D6521B100DED8DB /* CustomPresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = A36C95CD1D6521B100DED8DB /* CustomPresentation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A36C95D51D6521B100DED8DB /* CustomPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A36C95CA1D6521B100DED8DB /* CustomPresentation.framework */; };
 		A36C95DA1D6521B100DED8DB /* CustomPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C95D91D6521B100DED8DB /* CustomPresentationTests.swift */; };
+		A36C95E81D6521E100DED8DB /* OverlayTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C95E41D6521E100DED8DB /* OverlayTransitioningDelegate.swift */; };
+		A36C95E91D6521E100DED8DB /* OverlayPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C95E51D6521E100DED8DB /* OverlayPresentationController.swift */; };
+		A36C95EA1D6521E100DED8DB /* TransitionInAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C95E61D6521E100DED8DB /* TransitionInAnimator.swift */; };
+		A36C95EB1D6521E100DED8DB /* TransitionOutAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36C95E71D6521E100DED8DB /* TransitionOutAnimator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,10 @@
 		A36C95D41D6521B100DED8DB /* CustomPresentationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomPresentationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36C95D91D6521B100DED8DB /* CustomPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresentationTests.swift; sourceTree = "<group>"; };
 		A36C95DB1D6521B100DED8DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A36C95E41D6521E100DED8DB /* OverlayTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayTransitioningDelegate.swift; sourceTree = "<group>"; };
+		A36C95E51D6521E100DED8DB /* OverlayPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPresentationController.swift; sourceTree = "<group>"; };
+		A36C95E61D6521E100DED8DB /* TransitionInAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionInAnimator.swift; sourceTree = "<group>"; };
+		A36C95E71D6521E100DED8DB /* TransitionOutAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionOutAnimator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,10 @@
 		A36C95CC1D6521B100DED8DB /* CustomPresentation */ = {
 			isa = PBXGroup;
 			children = (
+				A36C95E41D6521E100DED8DB /* OverlayTransitioningDelegate.swift */,
+				A36C95E51D6521E100DED8DB /* OverlayPresentationController.swift */,
+				A36C95E61D6521E100DED8DB /* TransitionInAnimator.swift */,
+				A36C95E71D6521E100DED8DB /* TransitionOutAnimator.swift */,
 				A36C95CD1D6521B100DED8DB /* CustomPresentation.h */,
 				A36C95CF1D6521B100DED8DB /* Info.plist */,
 			);
@@ -194,6 +206,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36C95EB1D6521E100DED8DB /* TransitionOutAnimator.swift in Sources */,
+				A36C95EA1D6521E100DED8DB /* TransitionInAnimator.swift in Sources */,
+				A36C95E91D6521E100DED8DB /* OverlayPresentationController.swift in Sources */,
+				A36C95E81D6521E100DED8DB /* OverlayTransitioningDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +326,7 @@
 		A36C95DF1D6521B100DED8DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -320,12 +337,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.slingingpixels.CustomPresentation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		A36C95E01D6521B100DED8DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
