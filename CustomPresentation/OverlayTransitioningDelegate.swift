@@ -1,5 +1,9 @@
 //
-// Copyright 2014 Dylan Edwards
+//  OverlayTransitioningDelegate.swift
+//  Custom Presentation
+//
+//  Created by Dylan Edwards on 7/11/16.
+//  Copyright © 2016 Slinging Pixels Media. All rights reserved.
 //
 
 import UIKit
