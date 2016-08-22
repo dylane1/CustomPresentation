@@ -415,6 +415,7 @@
 				A36C95E01D6521B100DED8DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A36C95E11D6521B100DED8DB /* Build configuration list for PBXNativeTarget "CustomPresentationTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +424,7 @@
 				A36C95E31D6521B100DED8DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
