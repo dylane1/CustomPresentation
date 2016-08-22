@@ -1,11 +1,15 @@
 //
-// Copyright 2014 Dylan Edwards
+//  OverlayPresentationController.swift
+//  Custom Presentation
+//
+//  Created by Dylan Edwards on 7/11/16.
+//  Copyright © 2016 Slinging Pixels Media. All rights reserved.
 //
 
 
 import UIKit
 
-final class OverlayPresentationController: UIPresentationController {
+final public class OverlayPresentationController: UIPresentationController {
     
     private var dimmingView: UIView!
     private var dimmingBGColor: UIColor!
@@ -24,7 +28,7 @@ final class OverlayPresentationController: UIPresentationController {
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
     }
     
-    required convenience init(
+    required convenience public init(
         presentedViewController: UIViewController,
         presentingViewController: UIViewController,
         preferredContentSize: CGSize,
@@ -59,7 +63,7 @@ final class OverlayPresentationController: UIPresentationController {
         presentingViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    override func presentationTransitionWillBegin() {
+    override public func presentationTransitionWillBegin() {
         setupDimmingView()
         
         presentedViewController.preferredContentSize = contentSize
@@ -71,7 +75,7 @@ final class OverlayPresentationController: UIPresentationController {
         
     }
     
-    override func dismissalTransitionWillBegin() {
+    override public func dismissalTransitionWillBegin() {
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ [weak self] context in
             self!.dimmingView.alpha = 0.0
         }, completion: { [weak self] context in
@@ -80,7 +84,7 @@ final class OverlayPresentationController: UIPresentationController {
         })
     }
     
-    override func frameOfPresentedViewInContainerView() -> CGRect {
+    override public func frameOfPresentedViewInContainerView() -> CGRect {
         if presentedViewController.preferredContentSize.width > 0 {
             let x = containerView!.center.x - presentedViewController.preferredContentSize.width / 2
             let y = containerView!.center.y - presentedViewController.preferredContentSize.height / 2
@@ -90,7 +94,7 @@ final class OverlayPresentationController: UIPresentationController {
         }
     }
     
-    override func containerViewWillLayoutSubviews() {
+    override public func containerViewWillLayoutSubviews() {
         dimmingView.frame = containerView!.bounds
         presentedView()!.frame = frameOfPresentedViewInContainerView()
     }

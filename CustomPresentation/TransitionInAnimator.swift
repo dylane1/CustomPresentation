@@ -1,6 +1,6 @@
 //
 //  TransitionInAnimator.swift
-//  On The Map
+//  Custom Presentation
 //
 //  Created by Dylan Edwards on 7/11/16.
 //  Copyright © 2016 Slinging Pixels Media. All rights reserved.
