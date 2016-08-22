@@ -31,7 +31,7 @@ enum TransitionOption {
 }
 
 
-final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
+final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     private var options: [TransitionOption : Any]?
     
@@ -121,7 +121,7 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
         }
     }
     
-    func presentationControllerForPresentedViewController(
+    public func presentationControllerForPresentedViewController(
         presented: UIViewController,
         presentingViewController presenting: UIViewController,
         sourceViewController source: UIViewController) -> UIPresentationController? {
@@ -135,7 +135,7 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
             dismissalCompletion: dismissalCompletion)
     }
   
-    func animationControllerForPresentedController(
+    public func animationControllerForPresentedController(
         presented: UIViewController,
         presentingController presenting: UIViewController,
         sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -149,7 +149,7 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
             springVelocity: springVelocity)
     }
   
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         return TransitionOutAnimator(
             withDuration: durationOut,
