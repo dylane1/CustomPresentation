@@ -10,22 +10,22 @@ import UIKit
 
 final class TransitionOutAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     
-    private var duration: Double!
-    private var delay: Double           = 0.0
-    private var toPosition: Position    = .Bottom
-    private var useScale: Bool          = false
-    private var fadeOutAlpha: Bool      = false
+    fileprivate var duration: Double!
+    fileprivate var delay: Double           = 0.0
+    fileprivate var toPosition: Position    = .bottom
+    fileprivate var useScale: Bool          = false
+    fileprivate var fadeOutAlpha: Bool      = false
     
     //MARK: - Initialization
     
-    private override init() {
+    fileprivate override init() {
         super.init()
     }
     
     required convenience init(
         withDuration time: Double,
         delay del: Double               = 0.0,
-        toPosition position: Position   = .Bottom,
+        toPosition position: Position   = .bottom,
         useScale scale: Bool            = false,
         fadeOutAlpha alpha: Bool        = false) {
         
@@ -40,55 +40,55 @@ final class TransitionOutAnimator : NSObject, UIViewControllerAnimatedTransition
     
     //MARK: - 
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return NSTimeInterval(duration)
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return TimeInterval(duration)
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let presentedViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let presentedViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
         
         let presentedView = presentedViewController.view
-        let containerView = transitionContext.containerView()
+        let containerView = transitionContext.containerView
         
-        let center = presentedView.center
+        let center = presentedView?.center
         var destinationCenter = center
         
-        if toPosition != .Center {
+        if toPosition != .center {
             switch toPosition {
-            case .Top:
-                destinationCenter = CGPointMake(center.x, (-containerView!.bounds.size.height - presentedView.bounds.size.height))
-            case .Bottom:
-                destinationCenter = CGPointMake(center.x, (containerView!.bounds.size.height + presentedView.bounds.size.height))
-            case .Left:
-                destinationCenter = CGPointMake(center.y, (-containerView!.bounds.size.width - presentedView.bounds.size.width))
-            case .Right:
-                destinationCenter = CGPointMake(center.y, (containerView!.bounds.size.width + presentedView.bounds.size.width))
+            case .top:
+                destinationCenter = CGPoint(x: (center?.x)!, y: (-containerView.bounds.size.height - (presentedView?.bounds.size.height)!))
+            case .bottom:
+                destinationCenter = CGPoint(x: (center?.x)!, y: (containerView.bounds.size.height + (presentedView?.bounds.size.height)!))
+            case .left:
+                destinationCenter = CGPoint(x: (center?.y)!, y: (-containerView.bounds.size.width - (presentedView?.bounds.size.width)!))
+            case .right:
+                destinationCenter = CGPoint(x: (center?.y)!, y: (containerView.bounds.size.width + (presentedView?.bounds.size.width)!))
             default: /** Center */
                 break
             }
         }
 
-        let animationDuration = self .transitionDuration(transitionContext)
+        let animationDuration = self .transitionDuration(using: transitionContext)
         
-        UIView.animateWithDuration(
-            animationDuration,
+        UIView.animate(
+            withDuration: animationDuration,
             delay: delay,
             usingSpringWithDamping: 1.0,
             initialSpringVelocity: 0.0,
             options: [],
             animations: { () -> Void in
             
-            presentedView.center = destinationCenter
+            presentedView?.center = destinationCenter!
             
             if self.useScale {
-                presentedView.transform = CGAffineTransformMakeScale(0.1, 0.1)
+                presentedView?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             }
             if self.fadeOutAlpha {
-                presentedView.alpha = 0.0
+                presentedView?.alpha = 0.0
             }
             
         }) { (finished) -> Void in
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
 }
