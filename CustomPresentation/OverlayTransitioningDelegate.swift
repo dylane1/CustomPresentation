@@ -9,55 +9,55 @@
 import UIKit
 
 enum Position {
-    case Top, Bottom, Left, Right, Center
+    case top, bottom, left, right, center
 }
 
 /// Dictionary Keys
 enum TransitionOption {
-    case AlphaIn            /// Bool
-    case AlphaOut           /// Bool
-    case DelayIn            /// Double
-    case DelayOut           /// Double
-    case DimmingBGColor     /// UIColor
-    case DurationIn         /// Double
-    case DurationOut        /// Double
-    case InFromPosition     /// Position
-    case OutToPosition      /// Position
-    case ScaleIn            /// Bool
-    case ScaleOut           /// Bool
-    case SpringDampening    /// CGFloat
-    case SpringVelocity     /// CGFloat
-    case TapToDismiss       /// Bool
+    case alphaIn            /// Bool
+    case alphaOut           /// Bool
+    case delayIn            /// Double
+    case delayOut           /// Double
+    case dimmingBGColor     /// UIColor
+    case durationIn         /// Double
+    case durationOut        /// Double
+    case inFromPosition     /// Position
+    case outToPosition      /// Position
+    case scaleIn            /// Bool
+    case scaleOut           /// Bool
+    case springDampening    /// CGFloat
+    case springVelocity     /// CGFloat
+    case tapToDismiss       /// Bool
 }
 
 
 final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
-    private var options: [TransitionOption : Any]?
+    fileprivate var options: [TransitionOption : Any]?
     
     /** OverlayPresentationController **/
-    private var preferredContentSize: CGSize!
-    private var dimmingBGColor              = UIColor(white: 0.0, alpha: 0.5)
-    private var tapToDismiss                = false
-    private var dismissalCompletion: (() -> Void)?
+    fileprivate var preferredContentSize: CGSize!
+    fileprivate var dimmingBGColor              = UIColor(white: 0.0, alpha: 0.5)
+    fileprivate var tapToDismiss                = false
+    fileprivate var dismissalCompletion: (() -> Void)?
     
     /** TransitionInAnimator **/
-    private var durationIn: Double          = 0.5
-    private var delayIn: Double             = 0.0
-    private var fromPosition: Position      = .Bottom
-    private var useScaleIn                  = false
-    private var fadeInAlpha                 = false
-    private var springDampening: CGFloat    = 1.0
-    private var springVelocity: CGFloat     = 0.0
+    fileprivate var durationIn: Double          = 0.5
+    fileprivate var delayIn: Double             = 0.0
+    fileprivate var fromPosition: Position      = .bottom
+    fileprivate var useScaleIn                  = false
+    fileprivate var fadeInAlpha                 = false
+    fileprivate var springDampening: CGFloat    = 1.0
+    fileprivate var springVelocity: CGFloat     = 0.0
     
     /** TransitionOutAnimator **/
-    private var durationOut: Double         = 0.5
-    private var delayOut: Double            = 0.0
-    private var outToPosition: Position     = .Bottom
-    private var useScaleOut: Bool           = false
-    private var fadeOutAlpha: Bool          = false
+    fileprivate var durationOut: Double         = 0.5
+    fileprivate var delayOut: Double            = 0.0
+    fileprivate var outToPosition: Position     = .bottom
+    fileprivate var useScaleOut: Bool           = false
+    fileprivate var fadeOutAlpha: Bool          = false
     
-    internal func configureTransitionWithContentSize(contentSize: CGSize, options opts: [TransitionOption : Any]? = nil, dismissalCompletion outComplete: (() -> Void)? = nil) {
+    internal func configureTransitionWithContentSize(_ contentSize: CGSize, options opts: [TransitionOption : Any]? = nil, dismissalCompletion outComplete: (() -> Void)? = nil) {
 
         preferredContentSize    = contentSize
         dismissalCompletion     = outComplete
@@ -66,79 +66,93 @@ final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTrans
         checkForOptions()
     }
 
-    private func checkForOptions() {
+    fileprivate func checkForOptions() {
         guard let options = options else { return }
         
         /** OverlayPresentationController **/
         
-        if let bgDimming = options[.DimmingBGColor] as? UIColor {
+        if let bgDimming = options[.dimmingBGColor] as? UIColor {
             dimmingBGColor = bgDimming
         }
-        if let tapDissmiss = options[.TapToDismiss] as? Bool {
+        if let tapDissmiss = options[.tapToDismiss] as? Bool {
             tapToDismiss = tapDissmiss
         }
         
         /** TransitionInAnimator **/
         
-        if let timeIn = options[.DurationIn] as? Double {
+        if let timeIn = options[.durationIn] as? Double {
             durationIn = timeIn
         }
-        if let pauseIn = options[.DelayIn] as? Double {
+        if let pauseIn = options[.delayIn] as? Double {
             delayIn = pauseIn
         }
-        if let inFrom = options[.InFromPosition] as? Position {
+        if let inFrom = options[.inFromPosition] as? Position {
             fromPosition = inFrom
         }
-        if let scaleIn = options[.ScaleIn] as? Bool {
+        if let scaleIn = options[.scaleIn] as? Bool {
             useScaleIn = scaleIn
         }
-        if let alphaIn = options[.AlphaIn] as? Bool {
+        if let alphaIn = options[.alphaIn] as? Bool {
             fadeInAlpha = alphaIn
         }
-        if let dampening = options[.SpringDampening] as? CGFloat {
+        if let dampening = options[.springDampening] as? CGFloat {
             springDampening = dampening
         }
-        if let velocity = options[.SpringVelocity] as? CGFloat {
+        if let velocity = options[.springVelocity] as? CGFloat {
             springVelocity = velocity
         }
         
         /** TransitionOutAnimator **/
         
-        if let timeOut = options[.DurationOut] as? Double {
+        if let timeOut = options[.durationOut] as? Double {
             durationIn = timeOut
         }
-        if let pauseOut = options[.DelayOut] as? Double {
+        if let pauseOut = options[.delayOut] as? Double {
             delayOut = pauseOut
         }
-        if let outTo = options[.OutToPosition] as? Position {
+        if let outTo = options[.outToPosition] as? Position {
             outToPosition = outTo
         }
-        if let scaleOut = options[.ScaleOut] as? Bool {
+        if let scaleOut = options[.scaleOut] as? Bool {
             useScaleOut = scaleOut
         }
-        if let alphaOut = options[.AlphaOut] as? Bool {
+        if let alphaOut = options[.alphaOut] as? Bool {
             fadeOutAlpha = alphaOut
         }
     }
     
+<<<<<<< HEAD
     public func presentationControllerForPresentedViewController(
         presented: UIViewController,
         presentingViewController presenting: UIViewController,
         sourceViewController source: UIViewController) -> UIPresentationController? {
+=======
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController) -> UIPresentationController? {
+>>>>>>> release/v1.02.0
         
         return OverlayPresentationController(
             presentedViewController: presented,
-            presentingViewController: presenting,
+            presentingViewController: presenting!,
             preferredContentSize: preferredContentSize,
             dimmingBGColor: dimmingBGColor,
             tapToDismiss: tapToDismiss,
             dismissalCompletion: dismissalCompletion)
     }
   
+<<<<<<< HEAD
     public func animationControllerForPresentedController(
         presented: UIViewController,
         presentingController presenting: UIViewController,
         sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+=======
+    func animationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController,
+        source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+>>>>>>> release/v1.02.0
         
         return TransitionInAnimator(
             withDuration: durationIn,
@@ -149,7 +163,11 @@ final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTrans
             springVelocity: springVelocity)
     }
   
+<<<<<<< HEAD
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+=======
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+>>>>>>> release/v1.02.0
         
         return TransitionOutAnimator(
             withDuration: durationOut,
