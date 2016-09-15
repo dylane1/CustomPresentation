@@ -15,26 +15,26 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
      **/
     
     /// Required
-    private var duration: Double!
+    fileprivate var duration: Double!
     
     /// Optional
-    private var delay: Double           = 0.0
-    private var fromPosition: Position  = .Bottom
-    private var useScale                = false
-    private var fadeInAlpha             = false
-    private var springDampening: CGFloat!
-    private var springVelocity: CGFloat!
+    fileprivate var delay: Double           = 0.0
+    fileprivate var fromPosition: Position  = .bottom
+    fileprivate var useScale                = false
+    fileprivate var fadeInAlpha             = false
+    fileprivate var springDampening: CGFloat!
+    fileprivate var springVelocity: CGFloat!
     
     //MARK: - Initialization
     
-    private override init() {
+    fileprivate override init() {
         super.init()
     }
     
     required convenience init(
         withDuration time: Double,
         delay del: Double                   = 0.0,
-        fromPosition position: Position     = .Bottom,
+        fromPosition position: Position     = .bottom,
         useScale scale: Bool                = false,
         cornerRadius corners: CGFloat       = 0.0,
         shadowColor shadow: UIColor?        = nil,
@@ -55,53 +55,53 @@ final class TransitionInAnimator: NSObject, UIViewControllerAnimatedTransitionin
     
     //MARK: - 
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return NSTimeInterval(duration)
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return TimeInterval(duration)
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let presentedViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)! as UIViewController
-        let presentedView = presentedViewController.view
-        let containerView = transitionContext.containerView()
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let presentedViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)! as UIViewController
+        guard let presentedView = presentedViewController.view else { return }
+        let containerView = transitionContext.containerView
         
-        let animationDuration = self .transitionDuration(transitionContext)
+        let animationDuration = self .transitionDuration(using: transitionContext)
         
         let center = presentedView.center
         let destinationCenter = center
         
-        if fromPosition != .Center {
+        if fromPosition != .center {
             switch fromPosition {
-            case .Top:
-                presentedView.center = CGPointMake(center.x, -presentedView.bounds.size.height)
-            case .Bottom:
-                presentedView.center = CGPointMake(center.x, +presentedView.bounds.size.height)
-            case .Left:
-                presentedView.center = CGPointMake(center.y, -presentedView.bounds.size.width)
-            case .Right:
-                presentedView.center = CGPointMake(center.y, +presentedView.bounds.size.width)
+            case .top:
+                presentedView.center = CGPoint(x: center.x, y: -presentedView.bounds.size.height)
+            case .bottom:
+                presentedView.center = CGPoint(x: center.x, y: +presentedView.bounds.size.height)
+            case .left:
+                presentedView.center = CGPoint(x: center.y, y: -presentedView.bounds.size.width)
+            case .right:
+                presentedView.center = CGPoint(x: center.y, y: +presentedView.bounds.size.width)
             default: /** Center */
                 break
             }
         }
         
         if useScale {
-            presentedView.transform = CGAffineTransformMakeScale(0.1, 0.1)
+            presentedView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         }
 
         if fadeInAlpha {
             presentedView.alpha = 0.0
         }
         
-        containerView!.addSubview(presentedView)
+        containerView.addSubview(presentedView)
         
-        UIView.animateWithDuration(
-            animationDuration,
+        UIView.animate(
+            withDuration: animationDuration,
             delay: delay,
             usingSpringWithDamping: springDampening,
             initialSpringVelocity: springVelocity,
             options: [],
             animations: { () -> Void in
-                presentedView.transform = CGAffineTransformIdentity
+                presentedView.transform = CGAffineTransform.identity
                 presentedView.alpha     = 1.0
                 presentedView.center    = destinationCenter
             }, completion: { (finished) -> Void in
