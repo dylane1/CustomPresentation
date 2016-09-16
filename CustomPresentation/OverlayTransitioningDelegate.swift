@@ -121,17 +121,10 @@ final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTrans
         }
     }
     
-<<<<<<< HEAD
-    public func presentationControllerForPresentedViewController(
-        presented: UIViewController,
-        presentingViewController presenting: UIViewController,
-        sourceViewController source: UIViewController) -> UIPresentationController? {
-=======
-    func presentationController(
+    public func presentationController(
         forPresented presented: UIViewController,
         presenting: UIViewController?,
         source: UIViewController) -> UIPresentationController? {
->>>>>>> release/v1.02.0
         
         return OverlayPresentationController(
             presentedViewController: presented,
@@ -142,17 +135,10 @@ final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTrans
             dismissalCompletion: dismissalCompletion)
     }
   
-<<<<<<< HEAD
-    public func animationControllerForPresentedController(
-        presented: UIViewController,
-        presentingController presenting: UIViewController,
-        sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-=======
-    func animationController(
+    public func animationController(
         forPresented presented: UIViewController,
         presenting: UIViewController,
         source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
->>>>>>> release/v1.02.0
         
         return TransitionInAnimator(
             withDuration: durationIn,
@@ -163,11 +149,7 @@ final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTrans
             springVelocity: springVelocity)
     }
   
-<<<<<<< HEAD
-    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-=======
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
->>>>>>> release/v1.02.0
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         return TransitionOutAnimator(
             withDuration: durationOut,
