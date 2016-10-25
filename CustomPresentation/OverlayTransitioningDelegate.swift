@@ -8,12 +8,12 @@
 
 import UIKit
 
-enum Position {
+public enum Position {
     case top, bottom, left, right, center
 }
 
 /// Dictionary Keys
-enum TransitionOption {
+public enum TransitionOption {
     case alphaIn            /// Bool
     case alphaOut           /// Bool
     case delayIn            /// Double
