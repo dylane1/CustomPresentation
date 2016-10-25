@@ -30,7 +30,7 @@ final public class OverlayPresentationController: UIPresentationController {
     
     required convenience public init(
         presentedViewController: UIViewController,
-        presentingViewController: UIViewController,
+        presentingViewController: UIViewController?,
         preferredContentSize: CGSize,
         dimmingBGColor bgColor: UIColor = UIColor.black,
         tapToDismiss tap: Bool = false,

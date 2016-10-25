@@ -8,12 +8,12 @@
 
 import UIKit
 
-enum Position {
+public enum Position {
     case top, bottom, left, right, center
 }
 
 /// Dictionary Keys
-enum TransitionOption {
+public enum TransitionOption {
     case alphaIn            /// Bool
     case alphaOut           /// Bool
     case delayIn            /// Double
@@ -31,7 +31,7 @@ enum TransitionOption {
 }
 
 
-final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
+final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
     fileprivate var options: [TransitionOption : Any]?
     
@@ -57,7 +57,7 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
     fileprivate var useScaleOut: Bool           = false
     fileprivate var fadeOutAlpha: Bool          = false
     
-    internal func configureTransitionWithContentSize(_ contentSize: CGSize, options opts: [TransitionOption : Any]? = nil, dismissalCompletion outComplete: (() -> Void)? = nil) {
+    public func configureTransitionWithContentSize(_ contentSize: CGSize, options opts: [TransitionOption : Any]? = nil, dismissalCompletion outComplete: (() -> Void)? = nil) {
 
         preferredContentSize    = contentSize
         dismissalCompletion     = outComplete
@@ -121,21 +121,21 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
         }
     }
     
-    func presentationController(
+    public func presentationController(
         forPresented presented: UIViewController,
         presenting: UIViewController?,
         source: UIViewController) -> UIPresentationController? {
         
         return OverlayPresentationController(
             presentedViewController: presented,
-            presentingViewController: presenting!,
+            presentingViewController: presenting,
             preferredContentSize: preferredContentSize,
             dimmingBGColor: dimmingBGColor,
             tapToDismiss: tapToDismiss,
             dismissalCompletion: dismissalCompletion)
     }
   
-    func animationController(
+    public func animationController(
         forPresented presented: UIViewController,
         presenting: UIViewController,
         source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -149,7 +149,7 @@ final class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitionin
             springVelocity: springVelocity)
     }
   
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         return TransitionOutAnimator(
             withDuration: durationOut,
