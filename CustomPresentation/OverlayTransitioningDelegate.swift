@@ -57,7 +57,7 @@ final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTrans
     fileprivate var useScaleOut: Bool           = false
     fileprivate var fadeOutAlpha: Bool          = false
     
-    internal func configureTransitionWithContentSize(_ contentSize: CGSize, options opts: [TransitionOption : Any]? = nil, dismissalCompletion outComplete: (() -> Void)? = nil) {
+    public func configureTransitionWithContentSize(_ contentSize: CGSize, options opts: [TransitionOption : Any]? = nil, dismissalCompletion outComplete: (() -> Void)? = nil) {
 
         preferredContentSize    = contentSize
         dismissalCompletion     = outComplete
