@@ -19,6 +19,7 @@ public enum TransitionOption {
     case delayIn            /// Double
     case delayOut           /// Double
     case dimmingBGColor     /// UIColor
+    case dimmingBGAlpha     /// CGFloat
     case durationIn         /// Double
     case durationOut        /// Double
     case inFromPosition     /// Position
@@ -33,29 +34,30 @@ public enum TransitionOption {
 
 final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     
-    fileprivate var options: [TransitionOption : Any]?
+    private var options: [TransitionOption : Any]?
     
     /** OverlayPresentationController **/
-    fileprivate var preferredContentSize: CGSize!
-    fileprivate var dimmingBGColor              = UIColor(white: 0.0, alpha: 0.5)
-    fileprivate var tapToDismiss                = false
-    fileprivate var dismissalCompletion: (() -> Void)?
+    private var preferredContentSize: CGSize!
+    private var dimmingBGColor              = UIColor(white: 0.0, alpha: 0.5)
+    private var dimmingBGAlpha: CGFloat     = 0.5
+    private var tapToDismiss                = false
+    private var dismissalCompletion: (() -> Void)?
     
     /** TransitionInAnimator **/
-    fileprivate var durationIn: Double          = 0.5
-    fileprivate var delayIn: Double             = 0.0
-    fileprivate var fromPosition: Position      = .bottom
-    fileprivate var useScaleIn                  = false
-    fileprivate var fadeInAlpha                 = false
-    fileprivate var springDampening: CGFloat    = 1.0
-    fileprivate var springVelocity: CGFloat     = 0.0
+    private var durationIn: Double          = 0.5
+    private var delayIn: Double             = 0.0
+    private var fromPosition: Position      = .bottom
+    private var useScaleIn                  = false
+    private var fadeInAlpha                 = false
+    private var springDampening: CGFloat    = 1.0
+    private var springVelocity: CGFloat     = 0.0
     
     /** TransitionOutAnimator **/
-    fileprivate var durationOut: Double         = 0.5
-    fileprivate var delayOut: Double            = 0.0
-    fileprivate var outToPosition: Position     = .bottom
-    fileprivate var useScaleOut: Bool           = false
-    fileprivate var fadeOutAlpha: Bool          = false
+    private var durationOut: Double         = 0.5
+    private var delayOut: Double            = 0.0
+    private var outToPosition: Position     = .bottom
+    private var useScaleOut: Bool           = false
+    private var fadeOutAlpha: Bool          = false
     
     public func configureTransitionWithContentSize(_ contentSize: CGSize, options opts: [TransitionOption : Any]? = nil, dismissalCompletion outComplete: (() -> Void)? = nil) {
 
@@ -66,13 +68,16 @@ final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTrans
         checkForOptions()
     }
 
-    fileprivate func checkForOptions() {
+    private func checkForOptions() {
         guard let options = options else { return }
         
         /** OverlayPresentationController **/
         
         if let bgDimming = options[.dimmingBGColor] as? UIColor {
             dimmingBGColor = bgDimming
+        }
+        if let bgAlpha = options[.dimmingBGAlpha] as? CGFloat {
+            dimmingBGAlpha = bgAlpha
         }
         if let tapDissmiss = options[.tapToDismiss] as? Bool {
             tapToDismiss = tapDissmiss
@@ -131,6 +136,7 @@ final public class OverlayTransitioningDelegate: NSObject, UIViewControllerTrans
             presentingViewController: presenting,
             preferredContentSize: preferredContentSize,
             dimmingBGColor: dimmingBGColor,
+            dimmingBGAlpha: dimmingBGAlpha,
             tapToDismiss: tapToDismiss,
             dismissalCompletion: dismissalCompletion)
     }
