@@ -21,11 +21,11 @@ final public class OverlayPresentationController: UIPresentationController {
      Need dismissalCompletion if the tap background to dismiss option is
      used.
     */
-    fileprivate var dismissalCompletion: (() -> Void)?
+    private var dismissalCompletion: (() -> Void)?
     
     //MARK: - View Lifecycle
     
-    fileprivate override init( presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+    private override init( presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
     }
     
@@ -49,7 +49,7 @@ final public class OverlayPresentationController: UIPresentationController {
     
     //MARK: - Configuration
     
-    func setupDimmingView() {
+    private func setupDimmingView() {
         dimmingView = UIView()
         
         dimmingView.backgroundColor = dimmingBGColor
@@ -57,12 +57,12 @@ final public class OverlayPresentationController: UIPresentationController {
         dimmingView.frame           = containerView!.bounds
 
         if tapToDismiss {
-            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(OverlayPresentationController.dimmingViewTapped(_:)))
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(dimmingViewTapped(_:)))
             dimmingView.addGestureRecognizer(tapRecognizer)
         }
     }
     
-    func dimmingViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+    @objc private func dimmingViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         presentingViewController.dismiss(animated: true, completion: nil)
     }
     
