@@ -11,10 +11,11 @@ import UIKit
 
 final public class OverlayPresentationController: UIPresentationController {
     
-    fileprivate var dimmingView: UIView!
-    fileprivate var dimmingBGColor: UIColor!
-    fileprivate var contentSize: CGSize!
-    fileprivate var tapToDismiss = false
+    private var dimmingView: UIView!
+    private var dimmingBGColor: UIColor!
+    private var dimmingBGAlpha: CGFloat!
+    private var contentSize: CGSize!
+    private var tapToDismiss = false
     
     /**
      Need dismissalCompletion if the tap background to dismiss option is
@@ -33,6 +34,7 @@ final public class OverlayPresentationController: UIPresentationController {
         presentingViewController: UIViewController?,
         preferredContentSize: CGSize,
         dimmingBGColor bgColor: UIColor = UIColor.black,
+        dimmingBGAlpha bgAlpha: CGFloat = 0.5,
         tapToDismiss tap: Bool = false,
         dismissalCompletion completion: (() -> Void)? = nil) {
         
@@ -40,6 +42,7 @@ final public class OverlayPresentationController: UIPresentationController {
 
         contentSize         = preferredContentSize
         dimmingBGColor      = bgColor
+        dimmingBGAlpha      = bgAlpha
         dismissalCompletion = completion
         tapToDismiss        = tap
     }
@@ -70,7 +73,7 @@ final public class OverlayPresentationController: UIPresentationController {
         containerView!.insertSubview(dimmingView, at: 0)
         
         presentedViewController.transitionCoordinator?.animate( alongsideTransition: { [weak self] context in
-            self!.dimmingView.alpha = 0.5
+            self!.dimmingView.alpha = self!.dimmingBGAlpha
         }, completion: nil)
         
     }
